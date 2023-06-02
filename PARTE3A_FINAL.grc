@@ -1,6 +1,6 @@
 options:
   parameters:
-    author: RICARDO_JAIMES_ANDRES_BARRETO_L1C_G06
+    author: labcom
     catch_exceptions: 'True'
     category: '[GRC Hier Blocks]'
     cmake_opt: ''
@@ -11,7 +11,7 @@ options:
     gen_linking: dynamic
     generate_options: qt_gui
     hier_block_src_path: '.:'
-    id: configuracionUSR
+    id: PARTE3A_FINAL
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -22,7 +22,7 @@ options:
     run_options: prompt
     sizing_mode: fixed
     thread_safe_setters: ''
-    title: ''
+    title: Not titled yet
     window_size: (1000,1000)
   states:
     bus_sink: false
@@ -38,12 +38,12 @@ blocks:
   parameters:
     comment: ''
     gui_hint: ''
-    label: "amplitud se\xF1al TX"
+    label: "Amplitud se\xF1al"
     min_len: '200'
     orient: QtCore.Qt.Horizontal
     rangeType: float
     start: '0'
-    step: '0.1e-3'
+    step: 1e-6
     stop: '1'
     value: '1'
     widget: counter_slider
@@ -51,7 +51,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [640, 28.0]
+    coordinate: [664, 28.0]
     rotation: 0
     state: true
 - name: GTX
@@ -59,7 +59,7 @@ blocks:
   parameters:
     comment: ''
     gui_hint: ''
-    label: ganancia del TX
+    label: Ganancia del Tx
     min_len: '200'
     orient: QtCore.Qt.Horizontal
     rangeType: float
@@ -72,7 +72,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [496, 28.0]
+    coordinate: [480, 28.0]
     rotation: 0
     state: true
 - name: fc
@@ -80,20 +80,20 @@ blocks:
   parameters:
     comment: ''
     gui_hint: ''
-    label: frecuencia portadora
+    label: Frecuencia Portadora
     min_len: '200'
     orient: QtCore.Qt.Horizontal
     rangeType: float
     start: 50e6
     step: 1e6
     stop: 2.2e9
-    value: '85000000'
+    value: 50e6
     widget: counter_slider
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [328, 20.0]
+    coordinate: [296, 20.0]
     rotation: 0
     state: true
 - name: samp_rate
@@ -105,26 +105,24 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [216, 20.0]
+    coordinate: [184, 12]
     rotation: 0
     state: enabled
-- name: analog_const_source_x_0
-  id: analog_const_source_x
+- name: ModulacionesLineales_1
+  id: ModulacionesLineales
   parameters:
+    I_vect: '1024'
     affinity: ''
     alias: ''
     comment: ''
-    const: A
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    type: complex
+    gui_hint: ''
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [400, 380.0]
+    coordinate: [936, 544.0]
     rotation: 0
-    state: disabled
+    state: enabled
 - name: analog_sig_source_x_0
   id: analog_sig_source_x
   parameters:
@@ -132,21 +130,21 @@ blocks:
     alias: ''
     amp: A
     comment: ''
-    freq: '1000'
+    freq: 1E3
     maxoutbuf: '0'
     minoutbuf: '0'
     offset: '0'
     phase: '0'
     samp_rate: samp_rate
-    type: complex
-    waveform: analog.GR_CONST_WAVE
+    type: float
+    waveform: analog.GR_COS_WAVE
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [128, 196.0]
+    coordinate: [472, 332.0]
     rotation: 0
-    state: enabled
+    state: true
 - name: uhd_usrp_sink_0
   id: uhd_usrp_sink
   parameters:
@@ -421,12 +419,12 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [872, 252.0]
+    coordinate: [944, 324.0]
     rotation: 0
-    state: true
+    state: disabled
 
 connections:
-- [analog_const_source_x_0, '0', uhd_usrp_sink_0, '0']
+- [analog_sig_source_x_0, '0', ModulacionesLineales_1, '0']
 - [analog_sig_source_x_0, '0', uhd_usrp_sink_0, '0']
 
 metadata:

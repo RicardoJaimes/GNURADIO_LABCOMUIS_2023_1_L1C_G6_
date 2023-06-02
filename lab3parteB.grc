@@ -1,6 +1,6 @@
 options:
   parameters:
-    author: RICARDO_JAIMES_ANDRES_BARRETO_L1C_G06
+    author: RicardoJaimes_AndresBarreto_L1C_G06
     catch_exceptions: 'True'
     category: '[GRC Hier Blocks]'
     cmake_opt: ''
@@ -11,7 +11,7 @@ options:
     gen_linking: dynamic
     generate_options: qt_gui
     hier_block_src_path: '.:'
-    id: configuracionUSR
+    id: ConfiguracionUSRP
     max_nouts: '0'
     output_language: python
     placement: (0,0)
@@ -22,7 +22,7 @@ options:
     run_options: prompt
     sizing_mode: fixed
     thread_safe_setters: ''
-    title: ''
+    title: modulador de amplitud
     window_size: (1000,1000)
   states:
     bus_sink: false
@@ -33,17 +33,59 @@ options:
     state: enabled
 
 blocks:
-- name: A
+- name: Ac
   id: variable_qtgui_range
   parameters:
     comment: ''
     gui_hint: ''
-    label: "amplitud se\xF1al TX"
+    label: Amplitud de la portadora
     min_len: '200'
     orient: QtCore.Qt.Horizontal
     rangeType: float
     start: '0'
-    step: '0.1e-3'
+    step: 1e-3
+    stop: '4'
+    value: 125e-3
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [296, 148.0]
+    rotation: 0
+    state: true
+- name: Am
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: amplitud del mensaje
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: 100e-3
+    stop: '4'
+    value: '1'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [504, 148.0]
+    rotation: 0
+    state: true
+- name: B
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: cambio de bandas
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '1'
+    step: '2'
     stop: '1'
     value: '1'
     widget: counter_slider
@@ -51,7 +93,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [640, 28.0]
+    coordinate: [864, 20.0]
     rotation: 0
     state: true
 - name: GTX
@@ -59,7 +101,7 @@ blocks:
   parameters:
     comment: ''
     gui_hint: ''
-    label: ganancia del TX
+    label: Ganancia del TX
     min_len: '200'
     orient: QtCore.Qt.Horizontal
     rangeType: float
@@ -72,7 +114,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [496, 28.0]
+    coordinate: [480, 12.0]
     rotation: 0
     state: true
 - name: fc
@@ -80,74 +122,327 @@ blocks:
   parameters:
     comment: ''
     gui_hint: ''
-    label: frecuencia portadora
+    label: frecuenciaPortadora
     min_len: '200'
     orient: QtCore.Qt.Horizontal
     rangeType: float
-    start: 50e6
-    step: 1e6
-    stop: 2.2e9
-    value: '85000000'
+    start: '50000000'
+    step: '1000000'
+    stop: '2200000000'
+    value: 50e6
     widget: counter_slider
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [328, 20.0]
+    coordinate: [304, 12.0]
+    rotation: 0
+    state: true
+- name: fm
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: frecuencia del mensaje
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '300'
+    step: '100'
+    stop: samp_rate/4
+    value: 1e3
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [656, 12.0]
+    rotation: 0
+    state: true
+- name: k
+  id: variable_qtgui_range
+  parameters:
+    comment: ''
+    gui_hint: ''
+    label: habilita portadora
+    min_len: '200'
+    orient: QtCore.Qt.Horizontal
+    rangeType: float
+    start: '0'
+    step: '1'
+    stop: '1'
+    value: '1'
+    widget: counter_slider
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1040, 28.0]
     rotation: 0
     state: true
 - name: samp_rate
   id: variable
   parameters:
     comment: ''
-    value: 200e3
+    value: 12500000/8
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [216, 20.0]
+    coordinate: [40, 124.0]
     rotation: 0
     state: enabled
-- name: analog_const_source_x_0
-  id: analog_const_source_x
+- name: CalculoDePotenciaComunicaciones_0
+  id: CalculoDePotenciaComunicaciones
   parameters:
     affinity: ''
     alias: ''
     comment: ''
-    const: A
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    type: complex
+    gui_hint: ''
+    l_vect: '1024'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [400, 380.0]
+    coordinate: [456, 492.0]
     rotation: 0
-    state: disabled
+    state: true
+- name: Modulador_AM_L1C_G06_0
+  id: Modulador_AM_L1C_G06
+  parameters:
+    Ac: '1'
+    affinity: ''
+    alias: ''
+    comment: ''
+    ka: '0.5'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [496, 308.0]
+    rotation: 0
+    state: true
 - name: analog_sig_source_x_0
   id: analog_sig_source_x
   parameters:
     affinity: ''
     alias: ''
-    amp: A
+    amp: Am
     comment: ''
-    freq: '1000'
+    freq: fm
     maxoutbuf: '0'
     minoutbuf: '0'
     offset: '0'
     phase: '0'
     samp_rate: samp_rate
-    type: complex
-    waveform: analog.GR_CONST_WAVE
+    type: float
+    waveform: analog.GR_SIN_WAVE
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [128, 196.0]
+    coordinate: [64, 380.0]
+    rotation: 0
+    state: true
+- name: ec_SSB_0
+  id: ec_SSB
+  parameters:
+    Ac: '1'
+    B: '1'
+    K: '1'
+    affinity: ''
+    alias: ''
+    comment: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [568, 388.0]
     rotation: 0
     state: enabled
-- name: uhd_usrp_sink_0
+- name: qtgui_freq_sink_x_0
+  id: qtgui_freq_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    average: '1.0'
+    axislabels: 'True'
+    bw: samp_rate
+    color1: '"blue"'
+    color10: '"dark blue"'
+    color2: '"red"'
+    color3: '"green"'
+    color4: '"black"'
+    color5: '"cyan"'
+    color6: '"magenta"'
+    color7: '"yellow"'
+    color8: '"dark red"'
+    color9: '"dark green"'
+    comment: ''
+    ctrlpanel: 'False'
+    fc: '0'
+    fftsize: '1024'
+    freqhalf: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label: Relative Gain
+    label1: ''
+    label10: ''''''
+    label2: ''''''
+    label3: ''''''
+    label4: ''''''
+    label5: ''''''
+    label6: ''''''
+    label7: ''''''
+    label8: ''''''
+    label9: ''''''
+    legend: 'True'
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    nconnections: '1'
+    norm_window: 'False'
+    showports: 'False'
+    tr_chan: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_tag: '""'
+    type: complex
+    units: dB
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    wintype: window.WIN_BLACKMAN_hARRIS
+    ymax: '10'
+    ymin: '-140'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [960, 492.0]
+    rotation: 0
+    state: true
+- name: qtgui_time_sink_x_1
+  id: qtgui_time_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    alpha1: '1.0'
+    alpha10: '1.0'
+    alpha2: '1.0'
+    alpha3: '1.0'
+    alpha4: '1.0'
+    alpha5: '1.0'
+    alpha6: '1.0'
+    alpha7: '1.0'
+    alpha8: '1.0'
+    alpha9: '1.0'
+    autoscale: 'False'
+    axislabels: 'True'
+    color1: blue
+    color10: dark blue
+    color2: red
+    color3: green
+    color4: black
+    color5: cyan
+    color6: magenta
+    color7: yellow
+    color8: dark red
+    color9: dark green
+    comment: ''
+    ctrlpanel: 'False'
+    entags: 'True'
+    grid: 'False'
+    gui_hint: ''
+    label1: Signal 1
+    label10: Signal 10
+    label2: Signal 2
+    label3: Signal 3
+    label4: Signal 4
+    label5: Signal 5
+    label6: Signal 6
+    label7: Signal 7
+    label8: Signal 8
+    label9: Signal 9
+    legend: 'True'
+    marker1: '-1'
+    marker10: '-1'
+    marker2: '-1'
+    marker3: '-1'
+    marker4: '-1'
+    marker5: '-1'
+    marker6: '-1'
+    marker7: '-1'
+    marker8: '-1'
+    marker9: '-1'
+    name: '""'
+    nconnections: '1'
+    size: '1024'
+    srate: samp_rate
+    stemplot: 'False'
+    style1: '1'
+    style10: '1'
+    style2: '1'
+    style3: '1'
+    style4: '1'
+    style5: '1'
+    style6: '1'
+    style7: '1'
+    style8: '1'
+    style9: '1'
+    tr_chan: '0'
+    tr_delay: '0'
+    tr_level: '0.0'
+    tr_mode: qtgui.TRIG_MODE_FREE
+    tr_slope: qtgui.TRIG_SLOPE_POS
+    tr_tag: '""'
+    type: complex
+    update_time: '0.10'
+    width1: '1'
+    width10: '1'
+    width2: '1'
+    width3: '1'
+    width4: '1'
+    width5: '1'
+    width6: '1'
+    width7: '1'
+    width8: '1'
+    width9: '1'
+    ylabel: y
+    ymax: '1'
+    ymin: '-1'
+    yunit: '""'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [984, 388.0]
+    rotation: 0
+    state: true
+- name: uhd_usrp_sink_1
   id: uhd_usrp_sink
   parameters:
     affinity: ''
@@ -421,13 +716,17 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [872, 252.0]
+    coordinate: [984, 252.0]
     rotation: 0
     state: true
 
 connections:
-- [analog_const_source_x_0, '0', uhd_usrp_sink_0, '0']
-- [analog_sig_source_x_0, '0', uhd_usrp_sink_0, '0']
+- [Modulador_AM_L1C_G06_0, '0', qtgui_freq_sink_x_0, '0']
+- [Modulador_AM_L1C_G06_0, '0', qtgui_time_sink_x_1, '0']
+- [analog_sig_source_x_0, '0', CalculoDePotenciaComunicaciones_0, '0']
+- [analog_sig_source_x_0, '0', Modulador_AM_L1C_G06_0, '0']
+- [analog_sig_source_x_0, '0', ec_SSB_0, '0']
+- [ec_SSB_0, '0', uhd_usrp_sink_1, '0']
 
 metadata:
   file_format: 1
